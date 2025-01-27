@@ -12,7 +12,7 @@ def drop_colums(df, cols):
             print(f"Error: {e}")
             
 cols = ['img-link href', 'list-view-image src', 'photo-count', 'list-view-title', 'left', 'img-wrp href',
-       'he-lazy-image src', 'wp-btn', 'listing-card--owner-info__firm-name',
+       'he-lazy-image src', 'wp-btn', 'list-view-date', 'listing-card--owner-info__firm-name',
        'he-lazy-image src 3']
 
 drop_colums(df, cols)
@@ -63,8 +63,10 @@ df['celly 4'] = df['celly 4'].replace(replace_dic.keys(), replace_dic.values())
 df['floor'] = df['celly 4'].apply(lambda x: x.split('.')[0]).astype(int)
 drop_colums(df, ['celly 4'])
 
+df['price'] = df['list-view-price'].apply(lambda x: x.replace('.','')).astype(int)
 
-print(df['floor'].unique())
+
+print(df['price'].unique())
 
 
 
