@@ -25,7 +25,18 @@ df['neighbourhood'] = df["list-view-location"].str.split("/").str[2]
 
 drop_colums(df, ['list-view-location'])
 
-print(df.info())
+df['celly'] = df['celly'].apply(lambda x: x.replace('Stüdyo', '1 + 0'))
+df['celly'] = df['celly'].apply(lambda x: x.replace('\n', ''))
+df['room'] = df['celly'].apply(lambda x: x.split('+')[0]).astype(int)
+df['living_room'] = df['celly'].apply(lambda x: x.split('+')[1]).astype(int)
+
+drop_colums(df, ['celly'])
+
+df['celly 2'] = df['celly 2'].apply(lambda x: x.replace('.',''))
+df['size'] = df['celly 2'].apply(lambda x: x.split(' ')[0]).astype(int)
+drop_colums(df, ['celly 2'])
+
+print(df['size'].unique())
 
 
 
