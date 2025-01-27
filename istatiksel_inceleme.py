@@ -28,5 +28,10 @@ for column in colums:
     
     print(f"{column} min: {min_value}, max: {max_value}")
     
-    
 
+
+for i, column in enumerate(colums):
+    df = df[(df[column] >= min_values[i]) & (df[column] <= max_values[i])]
+    
+    
+df.to_csv("clear_data.csv")
