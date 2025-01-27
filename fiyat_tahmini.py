@@ -64,9 +64,11 @@ df['floor'] = df['celly 4'].apply(lambda x: x.split('.')[0]).astype(int)
 drop_colums(df, ['celly 4'])
 
 df['price'] = df['list-view-price'].apply(lambda x: x.replace('.','')).astype(int)
+drop_colums(df, ['list-view-price'])
 
 
-print(df['price'].unique())
+
+df.to_csv('data.csv', index=False)
 
 
 
