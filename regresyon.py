@@ -10,7 +10,8 @@ from sklearn.metrics import r2_score
 
 df = pd.read_csv('clear_data.csv')
 
-print(df.info())
+
+
 
 
 
