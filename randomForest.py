@@ -7,7 +7,7 @@ from sklearn.compose import ColumnTransformer
 
 from sklearn.metrics import classification_report, confusion_matrix
 
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestClassifier
 
 df = pd.read_csv('clear_data.csv')
 
@@ -25,7 +25,7 @@ X = df.drop('price', axis=1)
 y = df['price']
 
 
-bins = [x for x in range(900000, 17000001, 350000)]
+bins = [x for x in range(900000, 17000001, 700000)]
 labels = [x for x in range(1, len(bins))]
 print(bins)
 print(labels)
@@ -40,7 +40,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 model = Pipeline([
     ('preprocessing', full_pipeline),
-    ('model', RandomForestRegressor(n_estimators=100))
+    ('model', RandomForestClassifier(n_estimators=100))
 ])
 
 
@@ -49,9 +49,25 @@ model.fit(X_train, y_train)
 
 y_predict = model.predict(X_test)
 
-print(confusion_matrix(y_test, y_predict))
+conf_matrix = confusion_matrix(y_test, y_predict)
+
+new_df = pd.DataFrame(conf_matrix)
+
+custom_house = {
+    "city": ["izmir"],
+    "district": ["karşıyaka"],
+    "neighbourhood": ["şemikler"],
+    "room": [3],
+    "living_room": [1],
+    "size": [120],  # in square meters
+    "age": [5],  # in years
+    "floor": [2]
+}
+
+custom_house_df = pd.DataFrame(custom_house)
 
 
+print(f"Estimated price category: {model.predict(custom_house_df)[0]}")
 
 
 

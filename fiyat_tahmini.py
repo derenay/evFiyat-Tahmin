@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 
-df = pd.read_csv("hepsiemlak/01.csv")
+df = pd.read_csv("hepsiemlak/02.csv")
 
 def drop_colums(df, cols):
     for col in cols:
@@ -11,9 +11,9 @@ def drop_colums(df, cols):
         except Exception as e:
             print(f"Error: {e}")
             
-cols = ['img-link href', 'list-view-image src', 'photo-count', 'list-view-title', 'left', 'img-wrp href',
-       'he-lazy-image src', 'wp-btn', 'list-view-date', 'listing-card--owner-info__firm-name',
-       'he-lazy-image src 3']
+cols = ['img-link href', 'list-view-image src', 'photo-count', 'list-view-header', 'left', 'img-wrp href',
+       'he-lazy-image src 2', 'wp-btn', 'list-view-date', 'listing-card--owner-info__firm-name','he-lazy-image src'
+       ]
 
 drop_colums(df, cols)
 
@@ -35,8 +35,11 @@ df['size'] = df['celly 2'].apply(lambda x: x.split(' ')[0]).astype(int)
 drop_colums(df, ['celly 2'])
 
 
+df['celly 3'] = df['celly 3'].astype(str)
+df['celly 3'] = df['celly 3'].replace('nan', '0')
 df['celly 3'] = df['celly 3'].apply(lambda x: x.replace('\n',' '))
 df['celly 3'] = df['celly 3'].apply(lambda x: x.replace('Sıfır','0'))
+df['celly 3'] = df['celly 3'].apply(lambda x: x.replace('Sıfır Bina','0'))
 df['age'] = df['celly 3'].apply(lambda x: x.split(' ')[0]).astype(int)
 drop_colums(df, ['celly 3'])
 
@@ -55,7 +58,11 @@ replace_dic = {
     'Kot 2': '-2. Kat',
     'Çatı Katı': '6. Kat',
     'Kot 3': '-3. Kat',
-    None : '0. kat'
+    None : '0. kat',
+    '21 ve üzeri':  "21. kat",
+    'Teras Katı': "5. kat",
+    'Tripleks': "3. kat",
+    'Bodrum ve Zemin': '-1. kat'
     
 }
 

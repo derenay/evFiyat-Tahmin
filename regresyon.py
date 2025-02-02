@@ -8,6 +8,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
 
+
+
 df = pd.read_csv('clear_data.csv')
 
 categorical_features = ["city", "district", "neighbourhood"]
@@ -48,8 +50,8 @@ print(f"R2: {r2}")
 
 
 
-feature_importance = model.named_steps['model'].coef_
-print(feature_importance)
+# feature_importance = model.named_steps['model'].coef_
+# print(feature_importance)
 
 
 
